@@ -14,31 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alipay.sofa.infra.usercases;
+package com.alipay.sofa.runtime.integration.features;
 
-import com.alipay.sofa.infra.base.AbstractTestBase;
-import org.junit.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import com.alipay.sofa.runtime.api.annotation.SofaService;
+import org.springframework.stereotype.Component;
 
 /**
- * ServiceTest
- *
- * @author yangguanchao
- * @since 2018/01/04
+ * @author xuanbei
+ * @since 2.4.5
  */
-public class ServiceTest extends AbstractTestBase {
-
-    @Test
-    public void testServiceGet() {
-        assertNotNull(urlHttpPrefix);
-        String sofaBootVersionUrl = urlHttpPrefix + "/actuator/versions";
-        ResponseEntity<String> result = testRestTemplate.getForEntity(sofaBootVersionUrl,
-            String.class);
-        assertEquals(HttpStatus.OK.value(), result.getStatusCode().value());
-        assertNotNull(result);
+@Component
+@SofaService(uniqueId = "annotation")
+public class ServiceWithoutInterface {
+    public String service() {
+        return "ServiceWithoutInterface";
     }
 }

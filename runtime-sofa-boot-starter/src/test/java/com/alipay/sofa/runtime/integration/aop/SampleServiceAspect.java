@@ -14,24 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alipay.sofa.infra.constants;
+package com.alipay.sofa.runtime.integration.aop;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * CommonMiddlewareConstants
- *
- * @author yangguanchao
- * @since 2017/09/07
+ * @author xuanbei
+ * @since 2.4.5
  */
-public class CommonMiddlewareConstants {
+public class SampleServiceAspect {
+    private static AtomicBoolean aspectInvoked = new AtomicBoolean(false);
 
-    /***
-     * 获取应用名: 备注 @Value("${spring.application.name:@null}")
-     */
-    public static final String APP_NAME_KEY                = "spring.application.name";
+    public Object doAround(ProceedingJoinPoint point) throws Throwable {
+        aspectInvoked.set(true);
+        return point.proceed();
+    }
 
-    /**
-     * {@link org.springframework.boot.ResourceBanner#getVersionsMap}
-     */
-    public static final String SOFA_BOOT_VERSION           = "sofa-boot.version";
-    public static final String SOFA_BOOT_FORMATTED_VERSION = "sofa-boot.formatted-version";
+    public static boolean isAspectInvoked() {
+        return aspectInvoked.getAndSet(false);
+    }
 }

@@ -14,31 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alipay.sofa.infra.usercases;
-
-import com.alipay.sofa.infra.base.AbstractTestBase;
-import org.junit.Test;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+package com.alipay.sofa.infra.constants;
 
 /**
- * ServiceTest
+ * SofaBootInfraConstants
  *
  * @author yangguanchao
- * @since 2018/01/04
+ * @since 2017/09/07
  */
-public class ServiceTest extends AbstractTestBase {
+public class SofaBootInfraConstants {
 
-    @Test
-    public void testServiceGet() {
-        assertNotNull(urlHttpPrefix);
-        String sofaBootVersionUrl = urlHttpPrefix + "/actuator/versions";
-        ResponseEntity<String> result = testRestTemplate.getForEntity(sofaBootVersionUrl,
-            String.class);
-        assertEquals(HttpStatus.OK.value(), result.getStatusCode().value());
-        assertNotNull(result);
-    }
+    /***
+     * 获取应用名: 备注 @Value("${spring.application.name:@null}")
+     */
+    public static final String APP_NAME_KEY                 = "spring.application.name";
+
+    /**
+     * {@link org.springframework.boot.ResourceBanner#getVersionsMap}
+     */
+    public static final String SOFA_BOOT_VERSION            = "sofa-boot.version";
+    public static final String SOFA_BOOT_FORMATTED_VERSION  = "sofa-boot.formatted-version";
+
+    /**
+     * resource pattern of properties file which is used to save some information of starters.
+     */
+    public static final String SOFA_BOOT_VERSION_PROPERTIES = "classpath*:META-INF/sofa.versions.properties";
 }
